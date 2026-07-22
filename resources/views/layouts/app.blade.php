@@ -65,8 +65,11 @@
             bottom: 0;
             left: 0;
             padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
             box-shadow: 2px 0 15px rgba(0, 0, 0, 0.04);
             z-index: 1020;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
             transition: all 0.3s ease;
         }
@@ -367,7 +370,7 @@
             <span>Profil Pengguna</span>
         </a>
 
-        <div class="px-4 mt-5">
+        <div class="px-4 mt-auto pt-4">
             <div class="p-3 bg-light rounded-4 border border-1 border-light-subtle text-center">
                 <i class="fa-solid fa-shield-halved text-primary fs-4 mb-2"></i>
                 <div class="fw-bold small text-navy">SEMOK {{ config('app.version', 'v1.0') }}</div>

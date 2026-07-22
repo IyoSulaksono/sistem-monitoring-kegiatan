@@ -18,8 +18,8 @@ class ActivitySeeder extends Seeder
 
         // 1. Pengembangan Portal Satu Data Kota Medan (Triwulan III - In Progress, step 3)
         $act1 = Activity::create([
-            'title' => 'Pengembangan Portal Satu Data Kota Medan',
-            'description' => 'Integrasi API data sektoral OPD Kota Medan ke portal terpadu Satu Data Kota Medan.',
+            'title' => 'Pemeliharaan Genset Data Center',
+            'description' => 'Maintenance rutin Genset Data Center Diskominfo Kota Medan.',
             'assigned_to' => $staf->id,
             'start_date' => Carbon::now()->subDays(20)->format('Y-m-d'),
             'deadline' => Carbon::now()->addDays(12)->format('Y-m-d'), // Near deadline (<= 14 days)
@@ -31,7 +31,7 @@ class ActivitySeeder extends Seeder
         ProgressLog::create([
             'activity_id' => $act1->id,
             'step' => 1,
-            'description' => 'Penyusunan Kerangka Acuan Kerja (KAK) dan Kebutuhan Spesifikasi API OPD.',
+            'description' => 'Penyusunan Kerangka Acuan Kerja (KAK) dan Pendataan Kebutuhan Genset Data Center.',
             'notes' => 'Disetujui oleh Kepala Bidang.',
             'created_by' => $staf->id,
             'created_at' => Carbon::now()->subDays(18),
@@ -40,7 +40,7 @@ class ActivitySeeder extends Seeder
         ProgressLog::create([
             'activity_id' => $act1->id,
             'step' => 2,
-            'description' => 'Pengajuan e-Purchasing katalog elektronik lokal penyedia perangkat lunak.',
+            'description' => 'Pengajuan e-Purchasing katalog elektronik lokal penyedia.',
             'notes' => 'Nomor Kontrak: 027/DISKOMINFO/2026.',
             'created_by' => $staf->id,
             'created_at' => Carbon::now()->subDays(12),
@@ -49,7 +49,7 @@ class ActivitySeeder extends Seeder
         ProgressLog::create([
             'activity_id' => $act1->id,
             'step' => 3,
-            'description' => 'Pengerjaan coding modul skema database dan integrasi REST API Dinas Kesehatan & Disdukcapil.',
+            'description' => 'Pengerjaan pertama.',
             'notes' => 'Progres berjalan 60%. Tahap uji coba endpoint.',
             'created_by' => $staf->id,
             'created_at' => Carbon::now()->subDays(3),

@@ -12,17 +12,17 @@ class UserSeeder extends Seeder
     {
         User::create([
             'username' => 'admin',
-            'name' => 'Administrator Diskominfo',
+            'name' => 'Satrio Sulaksono, S.T.',
             'email' => 'admin@medan.go.id',
             'password' => Hash::make('password'),
             'role' => 'admin',
-            'position' => 'Kepala Bidang Layanan E-Government',
-            'phone' => '081234567890',
+            'position' => 'Administrator',
+            'phone' => '081274731269',
         ]);
 
         User::create([
             'username' => 'pptk',
-            'name' => 'Rahmat Hidayat, S.Kom (PPTK)',
+            'name' => 'Juang Akbar Harahap, S.Kom',
             'email' => 'pptk@medan.go.id',
             'password' => Hash::make('password'),
             'role' => 'pptk',
