@@ -87,8 +87,8 @@
         <!-- Banner Side -->
         <div class="col-lg-5 login-banner d-none d-lg-flex">
             <div class="mb-4">
-                <div class="bg-white rounded-4 p-3 d-inline-block mb-3 shadow">
-                    <i class="fa-solid fa-building-columns text-dark fs-2"></i>
+                <div class="bg-white rounded-circle p-2 d-inline-flex align-items-center justify-content-center mb-3 shadow overflow-hidden" style="width: 60px; height: 60px;">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo SEMOK" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-columns text-dark fs-2\'></i>';">
                 </div>
                 <h3 class="fw-bold">SEMOK</h3>
                 <p class="text-white-50 small mb-0">Sistem Monitoring Kegiatan Diskominfo Kota Medan</p>

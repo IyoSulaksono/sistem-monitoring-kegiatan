@@ -40,6 +40,7 @@ RUN chmod -R 775 storage bootstrap/cache database
 
 # Entrypoint commands script
 RUN cp .env.example .env && \
+    sed -i 's/APP_ENV=local/APP_ENV=production/g' .env && \
     php artisan key:generate && \
     php artisan migrate --force && \
     php artisan db:seed --force && \

@@ -204,8 +204,33 @@
             padding-top: 2rem;
         }
 
+        /* Mobile Overlay Backdrop */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(13, 40, 71, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1035;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+        }
+
         @media (max-width: 991.98px) {
+            .navbar-custom {
+                height: 64px;
+            }
             .sidebar {
+                top: 64px;
+                height: calc(100vh - 64px);
+                z-index: 1040;
                 transform: translateX(-100%);
             }
             .sidebar.show {
@@ -213,8 +238,31 @@
             }
             .main-wrapper {
                 margin-left: 0;
+                padding-top: 80px;
                 padding-left: 1rem;
                 padding-right: 1rem;
+            }
+            .navbar-brand-text {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+            .navbar-brand-subtext {
+                font-size: 0.68rem;
+                line-height: 1.1;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .navbar-brand-text {
+                font-size: 0.92rem;
+            }
+            .navbar-brand-subtext {
+                font-size: 0.65rem;
+            }
+            .avatar-circle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -223,25 +271,27 @@
 
     <!-- Top Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container-fluid px-4">
-            <button class="btn text-white d-lg-none me-3" type="button" onclick="document.querySelector('.sidebar').classList.toggle('show')">
-                <i class="fa-solid fa-bars fs-5"></i>
+        <div class="container-fluid px-2 px-sm-3 px-md-4">
+            <button class="btn text-white d-lg-none me-2 p-1 border-0 shadow-none" type="button" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars fs-4"></i>
             </button>
 
-            <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
-                <div class="bg-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px; shadow: 0 2px 8px rgba(0,0,0,0.15);">
-                    <i class="fa-solid fa-building-columns text-dark fs-5"></i>
+            <a class="navbar-brand d-flex align-items-center me-auto text-truncate" href="{{ route('dashboard') }}" style="max-width: calc(100% - 70px);">
+                <div class="bg-white rounded-circle p-1 me-2 me-sm-3 d-flex align-items-center justify-content-center flex-shrink-0 overflow-hidden" style="width: 38px; height: 38px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Logo SEMOK" class="img-fluid rounded-circle" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-building-columns text-dark fs-6\'></i>';">
                 </div>
-                <div>
-                    <div class="navbar-brand-text">Sistem Monitoring Kegiatan</div>
-                    <div class="navbar-brand-subtext">Dinas Komunikasi dan Informatika Kota Medan</div>
+                <div class="text-truncate">
+                    <div class="navbar-brand-text text-truncate">SEMOK</div>
+                    <!-- <div class="navbar-brand-subtext text-truncate d-none d-md-block">Sistem Monitoring Kegiatan - Diskominfo Medan</div> -->
+                    <div class="navbar-brand-subtext text-truncate d-none d-md-block">Sistem Monitoring Kegiatan - Dinas Komunikasi dan Informatika Kota Medan</div>
+                    <div class="navbar-brand-subtext text-truncate d-block d-md-none">Sistem Monitoring Kegiatan</div>
                 </div>
             </a>
 
-            <div class="ms-auto d-flex align-items-center">
-                <div class="dropdown me-2">
-                    <button class="btn text-white dropdown-toggle d-flex align-items-center bg-white bg-opacity-10 rounded-pill px-3 py-1 border-0" type="button" data-bs-toggle="dropdown">
-                        <div class="avatar-circle me-2">
+            <div class="ms-auto d-flex align-items-center flex-shrink-0">
+                <div class="dropdown me-1 me-sm-2">
+                    <button class="btn text-white dropdown-toggle d-flex align-items-center bg-white bg-opacity-10 rounded-pill px-2 px-sm-3 py-1 border-0 shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="avatar-circle me-0 me-sm-2">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                         <div class="text-start d-none d-sm-block me-2">
@@ -267,7 +317,7 @@
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="dropdown-item py-2 text-danger">
+                                <button type="submit" class="dropdown-item py-2 text-danger w-100 text-start">
                                     <i class="fa-solid fa-right-from-bracket me-2"></i> Keluar
                                 </button>
                             </form>
@@ -277,6 +327,9 @@
             </div>
         </div>
     </nav>
+
+    <!-- Sidebar Overlay Backdrop for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
@@ -317,7 +370,7 @@
         <div class="px-4 mt-5">
             <div class="p-3 bg-light rounded-4 border border-1 border-light-subtle text-center">
                 <i class="fa-solid fa-shield-halved text-primary fs-4 mb-2"></i>
-                <div class="fw-bold small text-navy">SEMOK v1.0</div>
+                <div class="fw-bold small text-navy">SEMOK {{ config('app.version', 'v1.0') }}</div>
                 <div class="text-muted" style="font-size: 0.72rem;">Proyek Aktualisasi LATSAR CPNS</div>
             </div>
         </div>
@@ -363,6 +416,31 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            }
+        }
+        
+        // Auto-close sidebar on link click when on mobile screen
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.sidebar .nav-link-custom').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 992) {
+                        const sidebar = document.querySelector('.sidebar');
+                        const overlay = document.getElementById('sidebarOverlay');
+                        if (sidebar) sidebar.classList.remove('show');
+                        if (overlay) overlay.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
+
     @yield('scripts')
 </body>
 </html>

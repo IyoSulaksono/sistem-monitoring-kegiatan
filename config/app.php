@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Sistem Monitoring Kegiatan'),
+
+    'version' => env('APP_VERSION', 'v1.0'),
 
     /*
     |--------------------------------------------------------------------------
